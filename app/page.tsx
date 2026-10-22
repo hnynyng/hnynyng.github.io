@@ -2,6 +2,7 @@ import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import Interactions from "@/components/Interactions";
 import Leadership from "@/components/Leadership";
 import Nav from "@/components/Nav";
 import Skills from "@/components/Skills";
@@ -25,6 +26,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <Interactions />
     </>
   );
 }

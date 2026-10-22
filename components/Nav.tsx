@@ -16,6 +16,23 @@ export const navLinks = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+
+  // Scrollspy: mark the nav link for the section crossing the middle of the screen.
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.getElementById(l.href.slice(2)))
+      .filter((el): el is HTMLElement => el !== null);
+    if (!sections.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -35,7 +52,9 @@ export default function Nav() {
         <ul className="nav-links">
           {navLinks.map((l) => (
             <li key={l.href}>
-              <a href={l.href}>{l.label}</a>
+              <a href={l.href} aria-current={active === l.href.slice(2) ? "location" : undefined}>
+                {l.label}
+              </a>
             </li>
           ))}
         </ul>

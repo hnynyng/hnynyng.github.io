@@ -614,7 +614,7 @@ a:hover {
     align-items: center;
     gap: 40px;
   }
-  .project:nth-child(even) .project-art {
+  .work-grid > :nth-child(even) .project-art {
     order: -1;
   }
   .project-art {
@@ -1000,11 +1000,128 @@ a:hover {
   max-width: 16ch;
 }
 
+/* ---------- Scroll reveals ---------- */
+
+.js .reveal {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--rd, 0ms);
+}
+.js .reveal-up { transform: translateY(28px); }
+.js .reveal-left { transform: translateX(-40px); }
+.js .reveal-right { transform: translateX(40px); }
+.js .reveal-scale { transform: scale(0.97); }
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.lead-grid > .reveal > .tile {
+  height: 100%;
+}
+
+/* ---------- Hover effects (mouse and trackpad only) ---------- */
+
+.nav-links a {
+  position: relative;
+}
+.nav-links a[aria-current] {
+  opacity: 1;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.nav-links a[aria-current]::after {
+  transform: scaleX(1);
+}
+
+.spot {
+  position: relative;
+  isolation: isolate;
+}
+.project .project-art svg,
+.stat-value,
+.story-results dd,
+.chip {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.34s ease,
+    background-color 0.25s ease, border-color 0.25s ease;
+}
+.link-out::after {
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile.spot,
+  .stat {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+  }
+  .tile.spot:hover,
+  .stat:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  }
+  /* Cursor spotlight: a soft accent glow that follows the pointer. */
+  .spot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      color-mix(in srgb, var(--accent) 12%, transparent),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .spot:hover::before {
+    opacity: 1;
+  }
+  .project:hover .project-art svg {
+    transform: scale(1.04);
+  }
+  .stat:hover .stat-value,
+  .story:hover .story-results dd {
+    color: var(--accent);
+  }
+  .link-out:hover::after {
+    transform: translate(2px, -2px);
+  }
+  .link-arrow:hover::after,
+  .btn:hover .arrow {
+    transform: translateX(3px);
+  }
+  /* Skill cross-highlight: hovering a chip lights up the same skill everywhere. */
+  .chip[data-skill] {
+    cursor: default;
+  }
+  .chip.is-match {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--text);
+  }
+}
+
 /* ---------- Motion preferences ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
   }
   *,
   *::before,
@@ -1012,4 +1129,9 @@ a:hover {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Side-entering reveals never cause sideways scrolling. */
+main {
+  overflow-x: clip;
 }
