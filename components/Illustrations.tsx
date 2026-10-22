@@ -92,6 +92,32 @@ function Events() {
   );
 }
 
+function Mail() {
+  // An inbox sorted by priority, feeding a WhatsApp-style chat bubble.
+  return (
+    <svg viewBox="0 0 300 240" aria-hidden="true" focusable="false">
+      <rect x="18" y="30" width="170" height="180" rx="18" fill={surface} stroke={stroke} strokeWidth="2" />
+      <rect x="34" y="46" width="70" height="8" rx="4" fill={ink} />
+      {[0, 1, 2, 3].map((i) => (
+        <g key={i} transform={`translate(34 ${70 + i * 34})`}>
+          <rect width="138" height="26" rx="8" fill="var(--bg)" />
+          <path d="M9 8h18v12H9zM9 8l9 7 9-7" fill="none" stroke={dim} strokeWidth="1.6" strokeLinejoin="round" />
+          <rect x="36" y="8" width={i === 0 ? 62 : 52} height="5" rx="2.5" fill={i === 0 ? ink : dim} opacity={i === 0 ? 0.85 : 0.5} />
+          <rect x="36" y="16" width="40" height="4" rx="2" fill={dim} opacity="0.35" />
+          {i < 2 && <circle cx="124" cy="13" r="5" fill={accent} opacity={i === 0 ? 1 : 0.55} />}
+        </g>
+      ))}
+      <path d="M196 102l18 0" stroke={accent} strokeWidth="2.4" strokeLinecap="round" strokeDasharray="4 5" />
+      <rect x="214" y="70" width="72" height="64" rx="16" fill="#25d366" />
+      <path d="M226 134l-6 14 18-14z" fill="#25d366" />
+      <rect x="226" y="84" width="48" height="6" rx="3" fill="#fff" />
+      <rect x="226" y="97" width="38" height="6" rx="3" fill="#fff" opacity="0.85" />
+      <rect x="226" y="110" width="44" height="6" rx="3" fill="#fff" opacity="0.7" />
+      <path d="M262 160l3 6.5 7 1-5 5 1.2 7-6.2-3.3-6.2 3.3 1.2-7-5-5 7-1z" fill={accent} />
+    </svg>
+  );
+}
+
 function Todo() {
   return (
     <svg viewBox="0 0 300 240" aria-hidden="true" focusable="false">
@@ -109,6 +135,8 @@ export default function ProjectIllustration({ kind }: { kind: Illustration }) {
       return <Chat />;
     case "events":
       return <Events />;
+    case "mail":
+      return <Mail />;
     default:
       return <Todo />;
   }

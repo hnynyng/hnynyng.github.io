@@ -67,7 +67,7 @@ export default function Work() {
             Things I have built.
           </h2>
           <p className="section-lede">
-            A hackathon team build, a university team project and a website for a freelance client.
+            A hackathon team build, a university team project, a website for a freelance client and a bot I&rsquo;m building now.
           </p>
         </Reveal>
         <div className="work-grid">

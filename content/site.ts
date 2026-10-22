@@ -27,7 +27,7 @@ export const stats = [
   { value: "Expanding", label: "Freelance clientele" },
 ];
 
-export type Illustration = "warung" | "chat" | "events" | "todo";
+export type Illustration = "warung" | "chat" | "events" | "mail" | "todo";
 
 export type Project = {
   id: string;
@@ -92,15 +92,17 @@ export const projects: Project[] = [
     illustration: "events",
   },
   {
-    id: "next-project",
-    name: "TODO: project name",
-    context: "In progress",
-    summary: "TODO: one-line description.",
-    points: ["TODO: facts about this project."],
-    tags: [],
+    id: "mailbot",
+    name: "MailBot",
+    context: "In progress · Personal project",
+    summary: "Organizes your emails and prioritizes the important ones, tailored to you.",
+    points: [
+      "A WhatsApp bot that sends you your prioritized emails.",
+      "You explain what matters to you, such as university course codes and names, news from clubs you follow, or topics you care about.",
+    ],
+    tags: ["WhatsApp bot", "Email triage", "Personalized priority"],
     links: [],
-    illustration: "todo",
-    todo: true,
+    illustration: "mail",
   },
 ];
 
