@@ -626,7 +626,7 @@ a:hover {
 
 .lead-grid {
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
 .lead-intro {
   display: grid;
