@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
 import { profile, projects, skillGroups, spokenLanguages } from "@/content/site";
 
-const COMMANDS = ["whoami", "skills", "projects", "contact", "help", "clear"] as const;
+const COMMANDS = ["whoami", "skills", "projects", "contact", "ls", "help", "clear"] as const;
 type Command = (typeof COMMANDS)[number];
 
 type Entry = { id: number; input?: string; output: ReactNode };
@@ -27,6 +27,7 @@ const outputs: Record<Exclude<Command, "clear">, () => ReactNode> = {
         ["skills", "what I work with"],
         ["projects", "what I have built"],
         ["contact", "how to reach me"],
+        ["ls", "list commands (same as help)"],
         ["help", "this list"],
         ["clear", "clear the screen"],
       ]
@@ -70,6 +71,7 @@ const outputs: Record<Exclude<Command, "clear">, () => ReactNode> = {
       ))}
     </pre>
   ),
+  ls: () => outputs.help(),
   contact: () => (
     <pre>
       {"email     "}
