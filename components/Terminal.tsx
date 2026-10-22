@@ -84,19 +84,26 @@ const outputs: Record<Exclude<Command, "clear">, () => ReactNode> = {
   ),
 };
 
-const welcome: Entry = {
-  id: 0,
-  output: (
-    <pre className="t-dim">Welcome. Type a command, or try one of the buttons below. Type help to see them all.</pre>
-  ),
-};
+function isCommand(cmd: string): cmd is keyof typeof outputs {
+  return Object.hasOwn(outputs, cmd);
+}
+
+// The terminal opens with a welcome line and one command already run, so it
+// never looks empty before anyone types.
+const initialEntries: Entry[] = [
+  {
+    id: 0,
+    output: <pre className="t-dim">Welcome. Type a command below, or tap one of the buttons. Try help.</pre>,
+  },
+  { id: 1, input: "whoami", output: outputs.whoami() },
+];
 
 export default function Terminal() {
-  const [entries, setEntries] = useState<Entry[]>([welcome]);
+  const [entries, setEntries] = useState<Entry[]>(initialEntries);
   const [value, setValue] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [cursor, setCursor] = useState(-1);
-  const nextId = useRef(1);
+  const nextId = useRef(initialEntries.length);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -118,7 +125,7 @@ export default function Terminal() {
     }
     let output: ReactNode = null;
     if (cmd === "") output = null;
-    else if (cmd in outputs) output = outputs[cmd as keyof typeof outputs]();
+    else if (isCommand(cmd)) output = outputs[cmd]();
     else
       output = (
         <pre>
@@ -197,8 +204,12 @@ export default function Terminal() {
             autoCorrect="off"
             spellCheck={false}
             enterKeyHint="go"
+            placeholder="type a command, e.g. help"
             aria-describedby="terminal-hint"
           />
+          <button type="submit" className="terminal-run">
+            Run
+          </button>
         </form>
       </div>
       <div className="terminal-shortcuts">
