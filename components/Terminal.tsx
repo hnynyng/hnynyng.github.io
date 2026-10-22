@@ -28,10 +28,12 @@ const outputs: Record<Exclude<Command, "clear">, () => ReactNode> = {
         ["projects", "what I have built"],
         ["contact", "how to reach me"],
         ["ls", "list commands (same as help)"],
+        ["pwd", "where you are"],
+        ["cat resume", "open my resume (PDF)"],
         ["help", "this list"],
         ["clear", "clear the screen"],
       ]
-        .map(([c, d]) => `  ${c.padEnd(10)}${d}`)
+        .map(([c, d]) => `  ${c.padEnd(12)}${d}`)
         .join("\n")}
     </pre>
   ),
@@ -86,6 +88,9 @@ const outputs: Record<Exclude<Command, "clear">, () => ReactNode> = {
   ),
 };
 
+// Typed-only commands: listed in help but without their own shortcut button.
+const EXTRA = ["pwd", "cat resume", "sudo"];
+
 function isCommand(cmd: string): cmd is keyof typeof outputs {
   return Object.hasOwn(outputs, cmd);
 }
@@ -128,6 +133,17 @@ export default function Terminal() {
     let output: ReactNode = null;
     if (cmd === "") output = null;
     else if (isCommand(cmd)) output = outputs[cmd]();
+    else if (cmd === "pwd") output = <pre>/home/hon/portfolio</pre>;
+    else if (cmd === "cat resume") {
+      window.open(profile.resume, "_blank", "noopener");
+      output = (
+        <pre>
+          {"Opening "}
+          <ExtLink href={profile.resume}>{profile.resume.slice(1)}</ExtLink>
+          {" ..."}
+        </pre>
+      );
+    } else if (cmd === "sudo" || cmd.startsWith("sudo ")) output = <pre>nice try</pre>;
     else
       output = (
         <pre>
@@ -160,7 +176,7 @@ export default function Terminal() {
         setValue(history[i]);
       }
     } else if (e.key === "Tab" && value.trim()) {
-      const match = COMMANDS.filter((c) => c.startsWith(value.trim().toLowerCase()));
+      const match = [...COMMANDS, ...EXTRA].filter((c) => c.startsWith(value.trim().toLowerCase()));
       if (match.length === 1) {
         e.preventDefault();
         setValue(match[0]);
