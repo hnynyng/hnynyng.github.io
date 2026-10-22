@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# design reference screenshots (local only)
+/reference/
