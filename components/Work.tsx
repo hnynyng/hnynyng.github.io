@@ -1,6 +1,7 @@
 import { projects, type Project } from "@/content/site";
 import ExternalLink from "./ExternalLink";
 import ProjectIllustration from "./Illustrations";
+import Reveal from "./Reveal";
 
 // Renders "TODO:" strings with a visible marker so unfinished content stands out.
 function Text({ children }: { children: string }) {
@@ -10,7 +11,7 @@ function Text({ children }: { children: string }) {
 function ProjectTile({ project }: { project: Project }) {
   const titleId = `${project.id}-title`;
   return (
-    <article className={`tile project ${project.todo ? "project-todo" : ""}`} aria-labelledby={titleId}>
+    <article className={`tile spot project ${project.todo ? "project-todo" : ""}`} aria-labelledby={titleId}>
       <div>
         <p className="project-context">{project.context}</p>
         <h3 id={titleId} className="tile-title">
@@ -30,7 +31,7 @@ function ProjectTile({ project }: { project: Project }) {
         {project.tags.length > 0 && (
           <ul className="chips" aria-label="Tech and focus">
             {project.tags.map((t) => (
-              <li key={t} className="chip">
+              <li key={t} className="chip" data-skill={t}>
                 {t}
               </li>
             ))}
@@ -60,7 +61,7 @@ export default function Work() {
   return (
     <section id="work" className="section section-alt" aria-labelledby="work-title">
       <div className="container">
-        <header className="section-head">
+        <Reveal as="header" className="section-head">
           <p className="eyebrow">Work</p>
           <h2 id="work-title" className="section-title">
             Things I have built.
@@ -68,10 +69,12 @@ export default function Work() {
           <p className="section-lede">
             A hackathon team build, a university team project and a website for a freelance client.
           </p>
-        </header>
+        </Reveal>
         <div className="work-grid">
-          {projects.map((p) => (
-            <ProjectTile key={p.id} project={p} />
+          {projects.map((p, i) => (
+            <Reveal key={p.id} from={i % 2 ? "right" : "left"}>
+              <ProjectTile project={p} />
+            </Reveal>
           ))}
         </div>
       </div>

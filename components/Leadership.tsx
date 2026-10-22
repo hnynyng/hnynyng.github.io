@@ -1,17 +1,18 @@
 import { leadership } from "@/content/site";
+import Reveal from "./Reveal";
 
 export default function Leadership() {
   return (
     <section id="leadership" className="section" aria-labelledby="leadership-title">
       <div className="container">
-        <header className="section-head">
+        <Reveal as="header" className="section-head">
           <p className="eyebrow">Leadership</p>
           <h2 id="leadership-title" className="section-title">
             {leadership.role}, {leadership.org}.
           </h2>
-        </header>
+        </Reveal>
         <div className="lead-grid">
-          <div className="tile lead-intro">
+          <Reveal className="tile lead-intro">
             <p className="lead-summary">
               {leadership.summary}
             </p>
@@ -23,20 +24,22 @@ export default function Leadership() {
                 </li>
               ))}
             </ol>
-          </div>
-          {leadership.stories.map((s) => (
-            <article key={s.title} className="tile story">
+          </Reveal>
+          {leadership.stories.map((s, i) => (
+            <Reveal key={s.title} delay={i * 90}>
+            <article className="tile spot story">
               <h3>{s.title}</h3>
               <p>{s.body}</p>
               <dl className="story-results">
                 {s.results.map((r) => (
                   <div key={r.label}>
                     <dt>{r.label}</dt>
-                    <dd>{r.value}</dd>
+                    <dd data-count>{r.value}</dd>
                   </div>
                 ))}
               </dl>
             </article>
+            </Reveal>
           ))}
         </div>
       </div>

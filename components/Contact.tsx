@@ -1,10 +1,11 @@
 import { profile } from "@/content/site";
 import ExternalLink from "./ExternalLink";
+import Reveal from "./Reveal";
 
 export default function Contact() {
   return (
     <section id="contact" className="section contact" aria-labelledby="contact-title">
-      <div className="container">
+      <Reveal className="container">
         <p className="eyebrow">Contact</p>
         <h2 id="contact-title" className="section-title">
           Let&rsquo;s work together.
@@ -31,7 +32,7 @@ export default function Contact() {
             <ExternalLink href={profile.github}>GitHub</ExternalLink>
           </li>
         </ul>
-      </div>
+      </Reveal>
     </section>
   );
 }

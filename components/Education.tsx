@@ -1,17 +1,18 @@
 import { education, recognition } from "@/content/site";
+import Reveal from "./Reveal";
 
 export default function Education() {
   return (
     <section id="education" className="section section-alt" aria-labelledby="education-title">
       <div className="container">
-        <header className="section-head">
+        <Reveal as="header" className="section-head">
           <p className="eyebrow">Recognition and Education</p>
           <h2 id="education-title" className="section-title">
             Learning by building.
           </h2>
-        </header>
+        </Reveal>
         <div className="edu-grid">
-          <div className="tile">
+          <Reveal from="left" className="tile">
             <h3 className="tile-label">Recognition</h3>
             <ul className="award-list">
               {recognition.map((r) => (
@@ -28,8 +29,8 @@ export default function Education() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="tile">
+          </Reveal>
+          <Reveal from="right" delay={80} className="tile">
             <h3 className="tile-label">Education</h3>
             {education.map((e) => (
               <div key={e.degree} className="edu-item">
@@ -48,7 +49,7 @@ export default function Education() {
                 )}
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

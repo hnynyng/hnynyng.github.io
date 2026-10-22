@@ -1,4 +1,5 @@
 import { highlights, profile, stats } from "@/content/site";
+import Reveal from "./Reveal";
 
 export default function Hero() {
   return (
@@ -32,11 +33,13 @@ export default function Hero() {
 
       <h2 className="sr-only">At a glance</h2>
       <ul className="stats">
-        {stats.map((s) => (
-          <li key={s.label} className="stat">
-            <span className="stat-value">{s.value}</span>
+        {stats.map((s, i) => (
+          <Reveal as="li" key={s.label} delay={i * 60} className="stat">
+            <span className="stat-value" data-count>
+              {s.value}
+            </span>
             <span className="stat-label">{s.label}</span>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </section>

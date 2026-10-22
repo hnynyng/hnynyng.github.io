@@ -1,29 +1,30 @@
 import { skillGroups, spokenLanguages } from "@/content/site";
+import Reveal from "./Reveal";
 
 export default function Skills() {
   return (
     <section id="skills" className="section" aria-labelledby="skills-title">
       <div className="container">
-        <header className="section-head">
+        <Reveal as="header" className="section-head">
           <p className="eyebrow">Skills</p>
           <h2 id="skills-title" className="section-title">
             The toolkit.
           </h2>
-        </header>
+        </Reveal>
         <div className="skills-grid">
-          {skillGroups.map((g) => (
-            <div key={g.name} className="tile">
+          {skillGroups.map((g, i) => (
+            <Reveal key={g.name} delay={i * 60} className="tile spot">
               <h3>{g.name}</h3>
               <ul className="chips">
                 {g.items.map((i) => (
-                  <li key={i} className="chip">
+                  <li key={i} className="chip" data-skill={i}>
                     {i}
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           ))}
-          <div className="tile spoken-tile">
+          <Reveal delay={skillGroups.length * 60} className="tile spoken-tile">
             <h3>Spoken languages</h3>
             <dl className="spoken">
               {spokenLanguages.map((l) => (
@@ -35,7 +36,7 @@ export default function Skills() {
                 </div>
               ))}
             </dl>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

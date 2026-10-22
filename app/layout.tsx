@@ -30,7 +30,8 @@ export const viewport: Viewport = {
 
 // Runs before first paint: apply a saved light/dark choice so there is no flash.
 // With no saved choice, CSS follows the visitor's system setting.
-const themeInit = `try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
+// The js class lets scroll reveals hide content only when JS is running.
+const themeInit = `document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`;
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
