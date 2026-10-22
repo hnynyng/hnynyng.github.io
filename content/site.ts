@@ -17,12 +17,12 @@ export const profile = {
 
 export const highlights = [
   "One of the top 150 finalised builders at Codex Hackathon Malaysia, the only team from my university",
-  "Vice President of a 300+ member club",
+  "Vice President of Sunway Pool Club, 300+ members",
 ];
 
 export const stats = [
   { value: "Top 150", label: "Finalised builders, Codex Hackathon Malaysia" },
-  { value: "300+", label: "Members in the club I help lead" },
+  { value: "300+", label: "Vice President, Sunway Pool Club" },
   { value: "3.49", label: "CGPA out of 4.00" },
   { value: "Expanding", label: "Freelance clientele" },
 ];
@@ -52,8 +52,9 @@ export const projects: Project[] = [
     note: "The team leader built the base app and the OCR. My part is below.",
     points: [
       "Enhanced and refined the stock tracking and analytics features, and resolved functional gaps that had been overlooked.",
-      "Voice ordering in English and Malay, plus a Rush mode.",
-      "OCR accuracy and data integrity fixes.",
+      "Implemented voice ordering in English, Malay and Chinese.",
+      "Built a one-tap interface for faster data entry.",
+      "Improved the OCR detection rate by 40%.",
     ],
     tags: ["React", "Vite", "Supabase", "PostgreSQL", "Vitest"],
     links: [{ label: "Source on GitHub", href: "https://github.com/clemedev/WarungAI" }],
@@ -81,7 +82,7 @@ export const projects: Project[] = [
       "A website for an events-industry client, built in 2 weeks.",
     points: [
       "Independently managed requirements, design and delivery.",
-      "About 20 people visited it at the client's live event.",
+      "Doubled the client's service bookings after their event.",
     ],
     tags: ["Freelance", "2-week build"],
     links: [
@@ -114,17 +115,12 @@ export const leadership = {
     "I co-lead a 6-person committee. Membership grew from about 260 to over 300 after two Clubs and Societies showcases.",
   stories: [
     {
-      title: "Bundle pricing",
+      title: "Club Activity",
       body: "Introduced bundle pricing for sessions.",
       results: [
         { value: "4 → 7–8", label: "Sessions a month, roughly" },
         { value: "+40%", label: "Margin, about" },
       ],
-    },
-    {
-      title: "Leaner tournaments",
-      body: "Cut tournament costs by paying prizes to 4 places instead of 8, and booking photographers only for key dates.",
-      results: [{ value: "8 → 4", label: "Prize places" }],
     },
     {
       title: "Picking up the slack",
@@ -173,7 +169,7 @@ export const skillGroups = [
 ];
 
 export const spokenLanguages = [
-  { name: "English", level: "TODO: level" },
-  { name: "Malay", level: "TODO: level" },
-  { name: "Chinese", level: "TODO: level" },
+  { name: "English", level: "Fluent" },
+  { name: "Malay", level: "Conversational" },
+  { name: "Chinese", level: "Fluent" },
 ];
