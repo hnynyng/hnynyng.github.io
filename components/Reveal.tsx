@@ -1,41 +1,58 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+
+// One observer shared by every Reveal. Elements get `is-in` the first time
+// they enter the viewport and are then unobserved, so each reveal plays once.
+let observer: IntersectionObserver | null = null;
+
+function getObserver() {
+  if (!observer) {
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add("is-in");
+          entry.target.dispatchEvent(new Event("reveal"));
+          observer?.unobserve(entry.target);
+        }
+      },
+      { threshold: 0, rootMargin: "0px 0px -10% 0px" },
+    );
+  }
+  return observer;
+}
 
 export default function Reveal({
   children,
+  from = "up",
   delay = 0,
   className = "",
+  as: Tag = "div",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  from?: "up" | "left" | "right" | "scale";
   delay?: number;
   className?: string;
+  as?: "div" | "li" | "header";
 }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement & HTMLLIElement & HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-visible");
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    const io = getObserver();
+    io.observe(el);
+    return () => io.unobserve(el);
   }, []);
 
   return (
-    <div
+    <Tag
       ref={ref}
-      className={`reveal ${className}`}
-      style={{ "--rd": `${delay}s` } as React.CSSProperties}
+      className={`reveal reveal-${from} ${className}`}
+      style={{ "--rd": `${delay}ms` } as CSSProperties}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

@@ -1,19 +1,20 @@
 # Portfolio — Hon Yen Yang
-Link: https://portfolio-phi-weld-96.vercel.app/
-Personal portfolio site. Single page, dark/light themed, built with Next.js.
+
+Live: https://hnynyng.github.io
+
+Single-page portfolio built with Next.js and exported as a fully static site for GitHub Pages.
 
 ## Stack
 
-- Next.js (App Router, static output) + TypeScript
-- Tailwind CSS v4 with a custom CSS-variable theme system
-- No animation libraries — all motion is hand-rolled CSS (first-load choreography, scroll reveals, view-transition theme switch)
+- Next.js (App Router) with `output: "export"`: no server, no analytics, no external requests
+- TypeScript, plain CSS design tokens (Tailwind is only used for its reset)
+- System font stack, light and dark themes that follow the system setting, with a remembered toggle
 
-## Themes
+## Edit content
 
-| | Base | Accent |
-|---|---|---|
-| Dark (default) | Charcoal `#12161A` | Electric Cobalt `#3B82F6` |
-| Light | Chalk `#F9F9FB` | Persimmon `#E65F2B` |
+Every fact on the site lives in [`content/site.ts`](content/site.ts). Anything starting with `TODO` shows on the page as a visible TODO until it is filled in.
+
+Replace `public/Hon_Yen_Yang_Resume.pdf` with the real resume (same file name).
 
 ## Develop
 
@@ -22,6 +23,9 @@ npm install
 npm run dev
 ```
 
+`npm run build` writes the static site to `out/`.
+
 ## Deploy
 
-Hosted on Vercel — push to `main` and it ships.
+`.github/workflows/deploy.yml` builds and publishes `out/` to GitHub Pages on every push to `main`.
+In the repository settings, Pages must use **GitHub Actions** as its source.

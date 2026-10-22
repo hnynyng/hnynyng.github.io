@@ -1,19 +1,32 @@
+import Contact from "@/components/Contact";
+import Education from "@/components/Education";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Journey from "@/components/Journey";
+import Interactions from "@/components/Interactions";
+import Leadership from "@/components/Leadership";
 import Nav from "@/components/Nav";
-import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
+import TerminalSection from "@/components/TerminalSection";
+import Work from "@/components/Work";
 
 export default function Home() {
   return (
-    <main className="flex-1">
+    <>
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <Nav />
-      <Hero />
-      <Projects />
-      <Skills />
-      <Journey />
+      <main id="main">
+        <Hero />
+        <Work />
+        <Leadership />
+        <Education />
+        <Skills />
+        <TerminalSection />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+      <Interactions />
+    </>
   );
 }
